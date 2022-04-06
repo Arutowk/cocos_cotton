@@ -6,8 +6,8 @@ import {TriggerManager} from "db://assets/Scripts/Trigger/TriggerManager";
 
 const {ccclass, property} = _decorator;
 
-@ccclass('DoorManager')
-export class DoorManager extends TriggerManager {
+@ccclass('DoorTriggerManager')
+export class DoorTriggerManager extends TriggerManager {
     public type: TriggerTypeEnum = TriggerTypeEnum.Door
 
     render() {

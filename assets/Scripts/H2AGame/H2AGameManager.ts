@@ -2,7 +2,6 @@ import {_decorator, Component, director, Event, instantiate, Node, Prefab, UITra
 import {CircleManager} from "db://assets/Scripts/H2AGame/CircleManager";
 import {EventEnum, SceneEnum, TriggerStatusEnum} from "db://assets/Scripts/Enum";
 import DataManager from "db://assets/Scripts/Runtime/DataManager";
-import EventManager from "db://assets/Scripts/Runtime/EventManager";
 import {RenderManager} from "db://assets/Scripts/Base/RenderManager";
 
 const {ccclass, property} = _decorator;
@@ -54,10 +53,9 @@ export class H2AGameManager extends RenderManager {
             const circleIndex = this.circles.findIndex(i => i === circle)
 
             if (nullIndex === circleIndex) {
-                const list = [...DataManager.Instance.H2AData]
-                list[circle.index] = curCircleContentIndex
-                list[index] = null
-                DataManager.Instance.H2AData = list
+                DataManager.Instance.H2AData[circle.index] = curCircleContentIndex
+                DataManager.Instance.H2AData[index] = null
+                DataManager.Instance.H2AData = [...DataManager.Instance.H2AData]
                 break;
             }
         }

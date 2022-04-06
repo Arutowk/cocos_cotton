@@ -2,13 +2,12 @@ import {_decorator, Button, instantiate, Node, Prefab, Label} from 'cc';
 import DataManager from "db://assets/Scripts/Runtime/DataManager";
 import {EventEnum, ItemStatusEnum, ItemTypeEnum} from "db://assets/Scripts/Enum";
 import {RenderManager} from "db://assets/Scripts/Base/RenderManager";
-import EventManager from "db://assets/Scripts/Runtime/EventManager";
-import {Item} from "db://assets/Scripts/Inventory/Item";
+import {ItemManager} from "db://assets/Scripts/Inventory/ItemManager";
 
 const {ccclass, property} = _decorator;
 
-@ccclass('Inventory')
-export class Inventory extends RenderManager {
+@ccclass('InventoryManager')
+export class InventoryManager extends RenderManager {
     @property(Node)
     placeholder: Node = null
 
@@ -29,11 +28,6 @@ export class Inventory extends RenderManager {
 
     @property(Node)
     hand: Node = null
-
-    start() {
-        super.start()
-        this.changeBtnInteractable()
-    }
 
     render() {
         this.placeholder.destroyAllChildren()
@@ -67,19 +61,33 @@ export class Inventory extends RenderManager {
         this.changeBtnInteractable()
     }
 
+    changeBtnInteractable() {
+        if (DataManager.Instance.curItemType === null) {
+            this.leftBtn.interactable = false
+            this.rightBtn.interactable = false
+            return
+        }
+
+        const isInventoryItems = DataManager.Instance.items.filter(item => item.status === ItemStatusEnum.Inventory)
+        const index = isInventoryItems.findIndex(item => item.type === DataManager.Instance.curItemType)
+
+        this.leftBtn.interactable = index > 0
+        this.rightBtn.interactable = index < isInventoryItems.length - 1
+    }
+
     generateItem(curItemType: ItemTypeEnum) {
         switch (curItemType) {
             case ItemTypeEnum.Key:
                 const keyNode = instantiate(this.keyPrefab)
                 this.placeholder.destroyAllChildren()
                 this.placeholder.addChild(keyNode)
-                this.label.string = keyNode.getComponent(Item).label
+                this.label.string = keyNode.getComponent(ItemManager).label
                 break;
             case ItemTypeEnum.Mail:
                 const mailNode = instantiate(this.mailPrefab)
                 this.placeholder.destroyAllChildren()
                 this.placeholder.addChild(mailNode)
-                this.label.string = mailNode.getComponent(Item).label
+                this.label.string = mailNode.getComponent(ItemManager).label
                 break;
             default:
                 break
@@ -100,8 +108,6 @@ export class Inventory extends RenderManager {
         if (index > 0) {
             DataManager.Instance.curItemType = isInventoryItems[index - 1].type
         }
-
-        this.changeBtnInteractable()
     }
 
     handleRight() {
@@ -114,22 +120,6 @@ export class Inventory extends RenderManager {
         if (index < isInventoryItems.length - 1) {
             DataManager.Instance.curItemType = isInventoryItems[index + 1].type
         }
-
-        this.changeBtnInteractable()
-    }
-
-    changeBtnInteractable() {
-        if (DataManager.Instance.curItemType === null) {
-            this.leftBtn.interactable = false
-            this.rightBtn.interactable = false
-            return
-        }
-
-        const isInventoryItems = DataManager.Instance.items.filter(item => item.status === ItemStatusEnum.Inventory)
-        const index = isInventoryItems.findIndex(item => item.type === DataManager.Instance.curItemType)
-
-        this.leftBtn.interactable = index > 0
-        this.rightBtn.interactable = index < isInventoryItems.length - 1
     }
 
 }

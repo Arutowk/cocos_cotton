@@ -16,6 +16,9 @@
     "_children": [
       {
         "__id__": 2
+      },
+      {
+        "__id__": 32
       }
     ],
     "_active": true,
@@ -23,7 +26,7 @@
     "_prefab": null,
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 32
+      "__id__": 35
     },
     "_id": "a5e01ff6-16af-47d9-b8e8-f195c42f2b9b"
   },
@@ -1099,26 +1102,110 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "menuUI": null,
     "inventory": null,
     "items": null,
     "_id": "72mHw9cztFLqt/KXQRc6kJ"
   },
   {
+    "__type__": "cc.Node",
+    "_name": "Music",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 33
+      },
+      {
+        "__id__": 34
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_layer": 1073741824,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "96aU0/ZvRFlJzY72l0rlJ8"
+  },
+  {
+    "__type__": "cc.AudioSource",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 32
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_clip": {
+      "__uuid__": "7d46e5d7-fa05-46be-b636-e51706e2f2e9",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "_loop": true,
+    "_playOnAwake": true,
+    "_volume": 0.05,
+    "_id": "d900ip7xNNUKoYiHeU3tyQ"
+  },
+  {
+    "__type__": "084b8woL/9KhbLg/Ab1YUMJ",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 32
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "normalClip": {
+      "__uuid__": "7d46e5d7-fa05-46be-b636-e51706e2f2e9",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "gameClip": {
+      "__uuid__": "544a30bb-1b9c-4864-a134-a15ea2199dcb",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "_id": "7fvyH1fCtF/bML5G7J5s4I"
+  },
+  {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 33
-    },
-    "shadows": {
-      "__id__": 34
-    },
-    "_skybox": {
-      "__id__": 35
-    },
-    "fog": {
       "__id__": 36
     },
-    "octree": {
+    "shadows": {
       "__id__": 37
+    },
+    "_skybox": {
+      "__id__": 38
+    },
+    "fog": {
+      "__id__": 39
+    },
+    "octree": {
+      "__id__": 40
     }
   },
   {

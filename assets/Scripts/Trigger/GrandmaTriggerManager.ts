@@ -2,12 +2,11 @@ import {_decorator, Label, Node} from 'cc';
 import {EventEnum, ItemStatusEnum, ItemTypeEnum, TriggerStatusEnum, TriggerTypeEnum} from "db://assets/Scripts/Enum";
 import DataManager from "db://assets/Scripts/Runtime/DataManager";
 import {TriggerManager} from "db://assets/Scripts/Trigger/TriggerManager";
-import EventManager from "db://assets/Scripts/Runtime/EventManager";
 
 const {ccclass, property} = _decorator;
 
-@ccclass('GrandmaManager')
-export class GrandmaManager extends TriggerManager {
+@ccclass('GrandmaTriggerManager')
+export class GrandmaTriggerManager extends TriggerManager {
     @property(Node)
     dialogNode: Node = null
 
@@ -49,9 +48,8 @@ export class GrandmaManager extends TriggerManager {
         if (DataManager.Instance.grandMoStatus === TriggerStatusEnum.Pending) {
             if (DataManager.Instance.isSelect && DataManager.Instance.curItemType === ItemTypeEnum.Mail) {
                 DataManager.Instance.curItemType = null
-                const list = [...DataManager.Instance.items]
-                list.find(i => i.type === ItemTypeEnum.Mail).status = ItemStatusEnum.Disable
-                DataManager.Instance.items = list
+                DataManager.Instance.items.find(i => i.type === ItemTypeEnum.Mail).status = ItemStatusEnum.Disable
+                DataManager.Instance.items = [...DataManager.Instance.items]
                 DataManager.Instance.grandMoStatus = TriggerStatusEnum.Resolve
                 DataManager.Instance.grandMoDialogIndex = 0
                 DataManager.Instance.isSelect = false
@@ -62,7 +60,12 @@ export class GrandmaManager extends TriggerManager {
                     DataManager.Instance.grandMoDialogIndex++
                 }
             }
-
+        }else{
+            if (DataManager.Instance.grandMoDialogIndex >= this.resolveDialogList.length - 1) {
+                DataManager.Instance.grandMoDialogIndex = -1
+            } else {
+                DataManager.Instance.grandMoDialogIndex++
+            }
         }
     }
 }

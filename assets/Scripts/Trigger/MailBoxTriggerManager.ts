@@ -5,8 +5,8 @@ import DataManager from "db://assets/Scripts/Runtime/DataManager";
 
 const {ccclass, property} = _decorator;
 
-@ccclass('MailBoxManager')
-export class MailBoxTrigger extends TriggerManager {
+@ccclass('MailBoxTriggerManager')
+export class MailBoxTriggerManager extends TriggerManager {
     @property(Node)
     closeNode: Node = null
 
@@ -24,10 +24,9 @@ export class MailBoxTrigger extends TriggerManager {
     handleTrigger() {
         if (DataManager.Instance.isSelect && DataManager.Instance.curItemType === ItemTypeEnum.Key) {
             DataManager.Instance.curItemType = null
-            const list = [...DataManager.Instance.items]
-            list.find(i => i.type === ItemTypeEnum.Key).status = ItemStatusEnum.Disable
-            list.find(i => i.type === ItemTypeEnum.Mail).status = ItemStatusEnum.Scene
-            DataManager.Instance.items = list
+            DataManager.Instance.items.find(i => i.type === ItemTypeEnum.Key).status = ItemStatusEnum.Disable
+            DataManager.Instance.items.find(i => i.type === ItemTypeEnum.Mail).status = ItemStatusEnum.Scene
+            DataManager.Instance.items = [...DataManager.Instance.items]
             DataManager.Instance.mailBoxStatus = TriggerStatusEnum.Resolve
             DataManager.Instance.isSelect = false
         }
