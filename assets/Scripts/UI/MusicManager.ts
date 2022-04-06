@@ -32,6 +32,7 @@ export class MusicManager extends RenderManager {
             audioSource.stop()
             audioSource.clip = this.curClip = this.normalClip
             audioSource.play()
+
         }
 
     }

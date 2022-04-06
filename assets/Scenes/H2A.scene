@@ -2322,6 +2322,7 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "menuUI": null,
     "inventory": null,
     "items": null,
     "_id": "b0q7HyymJG1JoSyI639D4L"

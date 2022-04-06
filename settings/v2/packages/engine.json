@@ -74,7 +74,7 @@
         "_value": false
       },
       "tween": {
-        "_value": true
+        "_value": false
       },
       "terrain": {
         "_value": false
@@ -102,7 +102,6 @@
       "intersection-2d",
       "physics-2d-box2d",
       "profiler",
-      "tween",
       "ui"
     ],
     "noDeprecatedFeatures": {

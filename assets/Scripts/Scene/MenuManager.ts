@@ -10,12 +10,16 @@ export class MenuManager extends SceneManager {
 
     newGame() {
         DataManager.Instance.reset()
-        director.loadScene(SceneEnum.H1)
+            director.loadScene(SceneEnum.H1)
+
     }
 
     continueGame() {
-        DataManager.Instance.restore()
-        director.loadScene(DataManager.Instance.curScene)
+        this.scheduleOnce(function() {
+            DataManager.Instance.restore()
+            director.loadScene(DataManager.Instance.curScene)
+        }, 0.1);
+
     }
 
     render() {

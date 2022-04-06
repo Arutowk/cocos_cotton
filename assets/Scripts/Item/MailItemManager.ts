@@ -2,7 +2,7 @@ import {_decorator} from 'cc';
 import {
     ItemTypeEnum,
 } from "db://assets/Scripts/Enum";
-import {KeyItemManager} from "db://assets/Scripts/Inventory/KeyItemManager";
+import {KeyItemManager} from "db://assets/Scripts/Item/KeyItemManager";
 
 const {ccclass, property} = _decorator;
 

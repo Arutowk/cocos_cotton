@@ -2,7 +2,7 @@ import {_decorator, Button, instantiate, Node, Prefab, Label} from 'cc';
 import DataManager from "db://assets/Scripts/Runtime/DataManager";
 import {EventEnum, ItemStatusEnum, ItemTypeEnum} from "db://assets/Scripts/Enum";
 import {RenderManager} from "db://assets/Scripts/Base/RenderManager";
-import {ItemManager} from "db://assets/Scripts/Inventory/ItemManager";
+import {ItemManager} from "db://assets/Scripts/Item/ItemManager";
 
 const {ccclass, property} = _decorator;
 
@@ -106,6 +106,7 @@ export class InventoryManager extends RenderManager {
         const isInventoryItems = DataManager.Instance.items.filter(item => item.status === ItemStatusEnum.Inventory)
         const index = isInventoryItems.findIndex(item => item.type === DataManager.Instance.curItemType)
         if (index > 0) {
+            DataManager.Instance.isSelect = false
             DataManager.Instance.curItemType = isInventoryItems[index - 1].type
         }
     }
@@ -118,6 +119,7 @@ export class InventoryManager extends RenderManager {
         const isInventoryItems = DataManager.Instance.items.filter(item => item.status === ItemStatusEnum.Inventory)
         const index = isInventoryItems.findIndex(item => item.type === DataManager.Instance.curItemType)
         if (index < isInventoryItems.length - 1) {
+            DataManager.Instance.isSelect = false
             DataManager.Instance.curItemType = isInventoryItems[index + 1].type
         }
     }
