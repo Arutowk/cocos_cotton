@@ -1,25 +1,49 @@
-import { _decorator, Component, Node, SpriteFrame } from 'cc'
+import { _decorator, Component, Node, SpriteFrame, Sprite } from 'cc'
+import { RenderManager } from '../Base/RenderManager'
 import { ItemStatusEnum, ItemTypeEnum } from '../Enum'
 import DataManager from '../Runtime/DataManager'
 const { ccclass, property } = _decorator
 
 @ccclass('ItemManager')
-export class ItemManager extends Component {
+export class ItemManager extends RenderManager {
     label = '物品'
     type: ItemTypeEnum
 
     @property(SpriteFrame)
-    sceneSf: SpriteFrame | null = null
+    sceneSf: SpriteFrame = null
 
     @property(SpriteFrame)
-    inventorySf: SpriteFrame | null = null
+    inventorySf: SpriteFrame = null
 
     start() {
+        super.start()
         this.node.on(Node.EventType.TOUCH_END, this.touchEnd, this)
     }
 
     onDestroy() {
+        super.onDestroy()
         this.node.off(Node.EventType.TOUCH_END, this.touchEnd)
+    }
+
+    render() {
+        const status = DataManager.Instance.items.find(i => i.type === this.type)?.status
+        const spriteComponent = this.getComponent(Sprite)
+        switch (status) {
+            case ItemStatusEnum.Scene:
+                this.node.active = true
+                spriteComponent.spriteFrame = this.sceneSf
+                break
+            case ItemStatusEnum.Inventory:
+                this.node.active = true
+                spriteComponent.spriteFrame = this.inventorySf
+                break
+            case ItemStatusEnum.Disable:
+                //消失
+                this.node.active = false
+                break
+            default:
+                break
+        }
     }
 
     touchEnd() {
