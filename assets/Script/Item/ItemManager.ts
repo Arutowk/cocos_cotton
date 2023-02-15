@@ -22,7 +22,7 @@ export class ItemManager extends RenderManager {
 
     onDestroy() {
         super.onDestroy()
-        this.node.off(Node.EventType.TOUCH_END, this.touchEnd)
+        this.node.off(Node.EventType.TOUCH_END, this.touchEnd, this)
     }
 
     render() {

@@ -10,7 +10,7 @@ export abstract class RenderManager extends Component {
     }
 
     onDestroy() {
-        EventManager.Instance.off(EventEnum.Render, this.render)
+        EventManager.Instance.off(EventEnum.Render, this.render, this)
     }
 
     start() {
