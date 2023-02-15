@@ -52,12 +52,14 @@ export class InventoryManager extends RenderManager {
 
         //如果背包里有当前物品并且被选择，那么显示手
         this.hand.active = Boolean(DataManager.Instance.curItemType) && DataManager.Instance.isSelected
+        //重新调整按钮状态
+        this.changeBtnInteractable()
     }
 
     generateItem(type: ItemTypeEnum) {
         switch (type) {
             case ItemTypeEnum.Key:
-                //从 Prefab 实例化出新节点
+                //从 Prefab 实例化出新节点使用instantiate方法
                 const keyNode = instantiate(this.keyPrefab)
                 this.placeholder.addChild(keyNode)
                 this.label.string = keyNode.getComponent(ItemManager).label
@@ -74,5 +76,38 @@ export class InventoryManager extends RenderManager {
 
     handleSelect() {
         DataManager.Instance.isSelected = !DataManager.Instance.isSelected
+    }
+
+    handleLeftBtn() {
+        if (DataManager.Instance.curItemType === null) return
+        const isInventoryItems = DataManager.Instance.items.filter(i => i.status === ItemStatusEnum.Inventory)
+        const index = isInventoryItems.findIndex(i => i.type === DataManager.Instance.curItemType)
+        if (index > 0) {
+            DataManager.Instance.isSelected = false
+            DataManager.Instance.curItemType = isInventoryItems[index - 1].type
+        }
+    }
+
+    handleRightBtn() {
+        if (DataManager.Instance.curItemType === null) return
+        const isInventoryItems = DataManager.Instance.items.filter(i => i.status === ItemStatusEnum.Inventory)
+        const index = isInventoryItems.findIndex(i => i.type === DataManager.Instance.curItemType)
+        if (index < isInventoryItems.length - 1) {
+            DataManager.Instance.isSelected = false
+            DataManager.Instance.curItemType = isInventoryItems[index + 1].type
+        }
+    }
+
+    changeBtnInteractable() {
+        if (DataManager.Instance.curItemType === null) {
+            //按钮的禁止状态由属性interactable控制
+            this.leftBtn.interactable = false
+            this.rightBtn.interactable = false
+            return
+        }
+        const isInventoryItems = DataManager.Instance.items.filter(i => i.status === ItemStatusEnum.Inventory)
+        const index = isInventoryItems.findIndex(i => i.type === DataManager.Instance.curItemType)
+        this.leftBtn.interactable = index > 0
+        this.rightBtn.interactable = index < isInventoryItems.length - 1
     }
 }
