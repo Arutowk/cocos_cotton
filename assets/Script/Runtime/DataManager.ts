@@ -17,7 +17,7 @@ export default class DataManager extends Singleton {
     /* 场景里所有物品的状态 */
     private _items: Array<IItem> = [
         { type: ItemTypeEnum.Key, status: ItemStatusEnum.Scene },
-        { type: ItemTypeEnum.Mail, status: ItemStatusEnum.Scene },
+        { type: ItemTypeEnum.Mail, status: ItemStatusEnum.Inventory },
     ]
     private _isSelected = false
 

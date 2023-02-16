@@ -54,6 +54,11 @@ export class ItemManager extends RenderManager {
         if (item.status === ItemStatusEnum.Scene) {
             item.status = ItemStatusEnum.Inventory
             DataManager.Instance.items = [...DataManager.Instance.items]
+            // DataManager.Instance.curItemType = this.type
+            // DataManager.Instance.items = [
+            //     { status: ItemStatusEnum.Inventory, type: this.type },
+            //     ...DataManager.Instance.items.filter(i => i.type === item.type),
+            // ]
         }
     }
 }
