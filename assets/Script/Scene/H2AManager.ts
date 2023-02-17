@@ -6,5 +6,5 @@ const { ccclass, property } = _decorator
 
 @ccclass('H2AManager')
 export class H2AManager extends SceneManager {
-    protected type: SceneEnum = SceneEnum.H2A
+    type: SceneEnum = SceneEnum.H2A
 }

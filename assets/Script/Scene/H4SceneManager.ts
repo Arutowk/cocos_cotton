@@ -1,5 +1,5 @@
 import { _decorator, Component, Node, Prefab, instantiate } from 'cc'
-import { ItemStatusEnum, ItemTypeEnum } from '../Enum'
+import { ItemStatusEnum, ItemTypeEnum, SceneEnum } from '../Enum'
 import DataManager from '../Runtime/DataManager'
 import { SceneManager } from './SceneManager'
 const { ccclass, property } = _decorator
@@ -11,6 +11,8 @@ export class H4SceneManager extends SceneManager {
 
     @property(Node)
     mailPlaceholder: Node = null
+
+    type: SceneEnum = SceneEnum.H4
 
     render() {
         this.items.destroyAllChildren()

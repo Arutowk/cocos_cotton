@@ -1,6 +1,7 @@
 import { _decorator, Component, Node, Event, director, Prefab, instantiate } from 'cc'
 import { RenderManager } from '../Base/RenderManager'
 import { SceneEnum } from '../Enum'
+import DataManager from '../Runtime/DataManager'
 const { ccclass, property } = _decorator
 
 @ccclass('SceneManager')
@@ -13,6 +14,11 @@ export class SceneManager extends RenderManager {
     @property(Prefab)
     inventory: Prefab = null
 
+    @property(Prefab)
+    menu: Prefab = null
+
+    type: SceneEnum
+
     start() {
         super.start()
         // director.preloadScene(SceneEnum.H1)
@@ -24,11 +30,19 @@ export class SceneManager extends RenderManager {
             const inventory = instantiate(this.inventory)
             this.node.addChild(inventory)
         }
+
+        if (this.menu) {
+            const menu = instantiate(this.menu)
+            this.node.addChild(menu)
+        }
     }
 
-    render() {}
+    render() {
+        if (DataManager.Instance.curScene === this.type) return
+        director.loadScene(DataManager.Instance.curScene)
+    }
 
     changeScene(e: Event, scene: string) {
-        director.loadScene(scene as SceneEnum)
+        DataManager.Instance.curScene = scene as SceneEnum
     }
 }

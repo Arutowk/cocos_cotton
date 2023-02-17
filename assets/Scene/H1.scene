@@ -777,6 +777,10 @@
     "__prefab": null,
     "items": null,
     "inventory": null,
+    "menu": {
+      "__uuid__": "c0b4e8df-fded-43f9-8656-ed141efd78c0",
+      "__expectedType__": "cc.Prefab"
+    },
     "_id": "61GbhMUORA2pl3w6WC1/ej"
   },
   {

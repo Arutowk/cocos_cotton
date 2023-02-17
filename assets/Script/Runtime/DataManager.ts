@@ -1,5 +1,5 @@
 import Singleton from '../Base/Singleton'
-import { EventEnum, ItemStatusEnum, ItemTypeEnum, TriggerStatusEnum } from '../Enum'
+import { EventEnum, ItemStatusEnum, ItemTypeEnum, SceneEnum, TriggerStatusEnum } from '../Enum'
 import EventManager from './EventManager'
 
 interface IItem {
@@ -28,6 +28,7 @@ export default class DataManager extends Singleton {
     private _grandmaDialogIndex: number = -1
     private _H2AData = [...this.H2AInitData]
     private _doorStatus: TriggerStatusEnum = TriggerStatusEnum.Pending
+    private _curScene: SceneEnum = SceneEnum.H1
 
     get curItemType() {
         return this._curItemType
@@ -99,6 +100,15 @@ export default class DataManager extends Singleton {
 
     set doorStatus(newData) {
         this._doorStatus = newData
+        this.render()
+    }
+
+    get curScene() {
+        return this._curScene
+    }
+
+    set curScene(newData) {
+        this._curScene = newData
         this.render()
     }
 

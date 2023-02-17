@@ -1274,6 +1274,10 @@
       "__uuid__": "00ad4f7a-0cc9-4763-b3a2-12ff093fa767",
       "__expectedType__": "cc.Prefab"
     },
+    "menu": {
+      "__uuid__": "c0b4e8df-fded-43f9-8656-ed141efd78c0",
+      "__expectedType__": "cc.Prefab"
+    },
     "mailPrefab": {
       "__uuid__": "8454786d-8ac5-41ad-96a6-e552bccd849b",
       "__expectedType__": "cc.Prefab"

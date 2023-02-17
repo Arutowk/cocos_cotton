@@ -5,6 +5,7 @@ export enum SceneEnum {
     H3 = 'H3',
     H4 = 'H4',
     H2A = 'H2A',
+    Menu = 'Menu',
 }
 
 /** 物品状态*/
