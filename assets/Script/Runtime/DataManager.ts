@@ -12,6 +12,9 @@ export default class DataManager extends Singleton {
         return super.GetInstance<DataManager>()
     }
 
+    readonly H2AAnswer = [0, 1, 2, 3, 4, 5, null]
+    readonly H2AInitData = [1, 0, 3, 2, 5, 4, null]
+
     /* 当前选择物品 */
     private _curItemType: ItemTypeEnum | null = null
     /* 场景里所有物品的状态 */
@@ -23,6 +26,7 @@ export default class DataManager extends Singleton {
     private _mailboxStatus: TriggerStatusEnum = TriggerStatusEnum.Pending
     private _grandmaStatus: TriggerStatusEnum = TriggerStatusEnum.Pending
     private _grandmaDialogIndex: number = -1
+    private _H2AData = this.H2AInitData
 
     get curItemType() {
         return this._curItemType
@@ -76,6 +80,15 @@ export default class DataManager extends Singleton {
 
     set grandmaDialogIndex(newData) {
         this._grandmaDialogIndex = newData
+        this.render()
+    }
+
+    get H2AData() {
+        return this._H2AData
+    }
+
+    set H2AData(newData) {
+        this._H2AData = newData
         this.render()
     }
 

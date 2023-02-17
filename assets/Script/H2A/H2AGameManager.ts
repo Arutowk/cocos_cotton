@@ -1,5 +1,6 @@
 import { _decorator, Component, Node, Prefab, instantiate, UITransform } from 'cc'
 import { RenderManager } from '../Base/RenderManager'
+import DataManager from '../Runtime/DataManager'
 import { CircleManager } from './CircleManager'
 const { ccclass, property } = _decorator
 
@@ -16,6 +17,9 @@ export class H2AGameManager extends RenderManager {
     @property(Prefab)
     line: Prefab = null
 
+    @property([Prefab])
+    contentPrefab: Prefab[] = []
+
     private circlesMap: Map<CircleManager, CircleManager[]> = new Map()
 
     start() {
@@ -24,7 +28,40 @@ export class H2AGameManager extends RenderManager {
         super.start()
     }
 
-    render() {}
+    render() {
+        //动态实例化生成棋子
+        for (let i = 0; i < this.circles.length; i++) {
+            const circle = this.circles[i]
+            circle.node.destroyAllChildren()
+            const contentIndex = DataManager.Instance.H2AData[i]
+            if (contentIndex !== null && this.contentPrefab[contentIndex]) {
+                const content = instantiate(this.contentPrefab[contentIndex])
+                circle.node.addChild(content)
+            }
+        }
+    }
+
+    handleCircleTouch(e: Event, _index: string) {
+        const index = parseInt(_index)
+        const curCircleContentIndex = DataManager.Instance.H2AData[index]
+        if (curCircleContentIndex === null) return
+        const curCircle = this.circles[index]
+        const circles = this.circlesMap.get(curCircle)
+        for (let i = 0; i < circles.length; i++) {
+            const circle = circles[i]
+            //找一下谁是null
+            const nullIndex = DataManager.Instance.H2AData.findIndex(item => item === null)
+            //目前匹配的这个circle的index
+            const circleIndex = this.circles.findIndex(i => i === circle)
+
+            if (nullIndex === circleIndex) {
+                DataManager.Instance.H2AData[circle.index] = curCircleContentIndex
+                DataManager.Instance.H2AData[index] = null
+                DataManager.Instance.H2AData = [...DataManager.Instance.H2AData]
+                break
+            }
+        }
+    }
 
     generateCirclesMap() {
         //设置通道
@@ -42,6 +79,12 @@ export class H2AGameManager extends RenderManager {
             this.circles[4],
             this.circles[5],
         ])
+
+        //设置索引值
+        for (let i = 0; i < this.circles.length; i++) {
+            const circle = this.circles[i]
+            circle.index = i
+        }
     }
 
     generateLines() {
