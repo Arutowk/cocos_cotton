@@ -1,5 +1,5 @@
 import Singleton from '../Base/Singleton'
-import { EventEnum, ItemStatusEnum, ItemTypeEnum } from '../Enum'
+import { EventEnum, ItemStatusEnum, ItemTypeEnum, TriggerStatusEnum } from '../Enum'
 import EventManager from './EventManager'
 
 interface IItem {
@@ -17,9 +17,10 @@ export default class DataManager extends Singleton {
     /* 场景里所有物品的状态 */
     private _items: Array<IItem> = [
         { type: ItemTypeEnum.Key, status: ItemStatusEnum.Scene },
-        { type: ItemTypeEnum.Mail, status: ItemStatusEnum.Inventory },
+        { type: ItemTypeEnum.Mail, status: ItemStatusEnum.Disable },
     ]
     private _isSelected = false
+    private _mailboxStatus: TriggerStatusEnum = TriggerStatusEnum.Pending
 
     get curItemType() {
         return this._curItemType
@@ -47,6 +48,15 @@ export default class DataManager extends Singleton {
 
     set isSelected(newData) {
         this._isSelected = newData
+        this.render()
+    }
+
+    get mailboxStatus() {
+        return this._mailboxStatus
+    }
+
+    set mailboxStatus(newData) {
+        this._mailboxStatus = newData
         this.render()
     }
 

@@ -2,12 +2,12 @@
   "ver": "1.1.35",
   "importer": "prefab",
   "imported": true,
-  "uuid": "d676845c-1935-4751-9321-d358897f79e7",
+  "uuid": "00ad4f7a-0cc9-4763-b3a2-12ff093fa767",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "Key"
+    "syncNodeName": "Inventory"
   }
 }

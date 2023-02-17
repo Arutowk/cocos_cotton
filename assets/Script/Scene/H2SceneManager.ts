@@ -13,9 +13,9 @@ export class H2SceneManager extends SceneManager {
     keyPlaceholder: Node = null
 
     render() {
-        super.render()
         this.items.destroyAllChildren()
-        const key = DataManager.Instance.items.find(i => (i.type = ItemTypeEnum.Key))
+        super.render()
+        const key = DataManager.Instance.items.find(i => i.type === ItemTypeEnum.Key)
         if (key && key.status === ItemStatusEnum.Scene) {
             const keyNode = instantiate(this.keyPrefab)
             this.items.addChild(keyNode)

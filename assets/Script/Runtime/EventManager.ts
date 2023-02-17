@@ -22,7 +22,7 @@ export default class EventManager extends Singleton {
 
     off(eventName: string, func: Function, ctx?: unknown) {
         if (this.eventDic.has(eventName)) {
-            const index = this.eventDic.get(eventName).findIndex(i => i.func === func && i?.ctx === ctx)
+            const index = this.eventDic.get(eventName).findIndex(i => i.func === func && i.ctx === ctx)
             index > -1 && this.eventDic.get(eventName).splice(index, 1)
         }
     }

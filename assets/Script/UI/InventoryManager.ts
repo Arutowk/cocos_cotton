@@ -33,10 +33,10 @@ export class InventoryManager extends RenderManager {
         this.placeholder.destroyAllChildren()
         const isInventoryItems = DataManager.Instance.items.filter(i => i.status === ItemStatusEnum.Inventory)
         this.node.active = isInventoryItems.length > 0
-        if (isInventoryItems.length) {
+        if (isInventoryItems.length > 0) {
             if (DataManager.Instance.curItemType) {
                 const item = DataManager.Instance.items.find(i => i.type === DataManager.Instance.curItemType)
-                if (item.status === ItemStatusEnum.Inventory) {
+                if (item && item?.status === ItemStatusEnum.Inventory) {
                     this.generateItem(DataManager.Instance.curItemType)
                 } else {
                     const type = isInventoryItems[0].type
@@ -61,11 +61,13 @@ export class InventoryManager extends RenderManager {
             case ItemTypeEnum.Key:
                 //从 Prefab 实例化出新节点使用instantiate方法
                 const keyNode = instantiate(this.keyPrefab)
+                this.placeholder.destroyAllChildren()
                 this.placeholder.addChild(keyNode)
                 this.label.string = keyNode.getComponent(ItemManager).label
                 break
             case ItemTypeEnum.Mail:
                 const mailNode = instantiate(this.mailPrefab)
+                this.placeholder.destroyAllChildren()
                 this.placeholder.addChild(mailNode)
                 this.label.string = mailNode.getComponent(ItemManager).label
                 break
