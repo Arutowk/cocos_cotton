@@ -1,5 +1,6 @@
-import { _decorator, Component, Node, Prefab, instantiate, UITransform } from 'cc'
+import { _decorator, Component, Node, Prefab, instantiate, UITransform, director } from 'cc'
 import { RenderManager } from '../Base/RenderManager'
+import { SceneEnum, TriggerStatusEnum } from '../Enum'
 import DataManager from '../Runtime/DataManager'
 import { CircleManager } from './CircleManager'
 const { ccclass, property } = _decorator
@@ -26,6 +27,7 @@ export class H2AGameManager extends RenderManager {
         this.generateCirclesMap()
         this.generateLines()
         super.start()
+        this.checkSuccess()
     }
 
     render() {
@@ -42,6 +44,7 @@ export class H2AGameManager extends RenderManager {
     }
 
     handleCircleTouch(e: Event, _index: string) {
+        if (DataManager.Instance.doorStatus === TriggerStatusEnum.Resolved) return
         const index = parseInt(_index)
         const curCircleContentIndex = DataManager.Instance.H2AData[index]
         if (curCircleContentIndex === null) return
@@ -61,6 +64,18 @@ export class H2AGameManager extends RenderManager {
                 break
             }
         }
+        this.checkSuccess()
+    }
+
+    checkSuccess() {
+        if (DataManager.Instance.H2AData.every((item, index) => DataManager.Instance.H2AAnswer[index] === item)) {
+            DataManager.Instance.doorStatus = TriggerStatusEnum.Resolved
+            director.loadScene(SceneEnum.H2)
+        }
+    }
+
+    resetContent() {
+        DataManager.Instance.H2AData = [...DataManager.Instance.H2AInitData]
     }
 
     generateCirclesMap() {

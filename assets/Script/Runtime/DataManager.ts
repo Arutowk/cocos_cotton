@@ -26,7 +26,8 @@ export default class DataManager extends Singleton {
     private _mailboxStatus: TriggerStatusEnum = TriggerStatusEnum.Pending
     private _grandmaStatus: TriggerStatusEnum = TriggerStatusEnum.Pending
     private _grandmaDialogIndex: number = -1
-    private _H2AData = this.H2AInitData
+    private _H2AData = [...this.H2AInitData]
+    private _doorStatus: TriggerStatusEnum = TriggerStatusEnum.Pending
 
     get curItemType() {
         return this._curItemType
@@ -89,6 +90,15 @@ export default class DataManager extends Singleton {
 
     set H2AData(newData) {
         this._H2AData = newData
+        this.render()
+    }
+
+    get doorStatus() {
+        return this._doorStatus
+    }
+
+    set doorStatus(newData) {
+        this._doorStatus = newData
         this.render()
     }
 
