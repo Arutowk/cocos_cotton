@@ -1,5 +1,6 @@
 import { _decorator, Component, Node, director } from 'cc'
 import { SceneEnum } from '../Enum'
+import DataManager from '../Runtime/DataManager'
 import { SceneManager } from './SceneManager'
 const { ccclass, property } = _decorator
 
@@ -10,8 +11,12 @@ export class MenuSceneManager extends SceneManager {
     render() {}
 
     handleNewGmae() {
+        DataManager.Instance.reset()
         director.loadScene(SceneEnum.H1)
     }
 
-    handleContinueGame() {}
+    handleContinueGame() {
+        DataManager.Instance.restore()
+        director.loadScene(DataManager.Instance.curScene)
+    }
 }

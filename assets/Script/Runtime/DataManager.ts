@@ -1,6 +1,9 @@
+import { sys } from 'cc'
 import Singleton from '../Base/Singleton'
 import { EventEnum, ItemStatusEnum, ItemTypeEnum, SceneEnum, TriggerStatusEnum } from '../Enum'
 import EventManager from './EventManager'
+
+const STOREAGE_KEY = 'STOREAGE_KEY'
 
 interface IItem {
     status: ItemStatusEnum
@@ -36,7 +39,7 @@ export default class DataManager extends Singleton {
 
     set curItemType(newData) {
         this._curItemType = newData
-        this.render()
+        this.renderAndSave()
     }
 
     get items() {
@@ -46,7 +49,7 @@ export default class DataManager extends Singleton {
     set items(newData: Array<IItem>) {
         this._items = newData
         //触发渲染
-        this.render()
+        this.renderAndSave()
     }
 
     get isSelected() {
@@ -55,7 +58,7 @@ export default class DataManager extends Singleton {
 
     set isSelected(newData) {
         this._isSelected = newData
-        this.render()
+        this.renderAndSave()
     }
 
     get mailboxStatus() {
@@ -64,7 +67,7 @@ export default class DataManager extends Singleton {
 
     set mailboxStatus(newData) {
         this._mailboxStatus = newData
-        this.render()
+        this.renderAndSave()
     }
 
     get grandmaStatus() {
@@ -73,7 +76,7 @@ export default class DataManager extends Singleton {
 
     set grandmaStatus(newData) {
         this._grandmaStatus = newData
-        this.render()
+        this.renderAndSave()
     }
 
     get grandmaDialogIndex() {
@@ -82,7 +85,7 @@ export default class DataManager extends Singleton {
 
     set grandmaDialogIndex(newData) {
         this._grandmaDialogIndex = newData
-        this.render()
+        this.renderAndSave()
     }
 
     get H2AData() {
@@ -91,7 +94,7 @@ export default class DataManager extends Singleton {
 
     set H2AData(newData) {
         this._H2AData = newData
-        this.render()
+        this.renderAndSave()
     }
 
     get doorStatus() {
@@ -100,7 +103,7 @@ export default class DataManager extends Singleton {
 
     set doorStatus(newData) {
         this._doorStatus = newData
-        this.render()
+        this.renderAndSave()
     }
 
     get curScene() {
@@ -109,10 +112,58 @@ export default class DataManager extends Singleton {
 
     set curScene(newData) {
         this._curScene = newData
-        this.render()
+        this.renderAndSave()
     }
 
-    render() {
+    renderAndSave() {
         EventManager.Instance.emit(EventEnum.Render)
+
+        sys.localStorage.setItem(
+            STOREAGE_KEY,
+            JSON.stringify({
+                H2AData: this.H2AData,
+                items: this.items,
+                curItemType: this.curItemType,
+                curScene: this.curScene,
+                mailboxStatus: this.mailboxStatus,
+                doorStatus: this.doorStatus,
+                grandmaStatus: this.grandmaStatus,
+                grandmaDialogIndex: this.grandmaDialogIndex,
+                isSelected: this.isSelected,
+            }),
+        )
+    }
+
+    reset() {
+        this.H2AData = [...this.H2AInitData]
+        this.curItemType = null
+        this.items = [
+            { type: ItemTypeEnum.Key, status: ItemStatusEnum.Scene },
+            { type: ItemTypeEnum.Mail, status: ItemStatusEnum.Disable },
+        ]
+        this.curScene = SceneEnum.H1
+        this.mailboxStatus = TriggerStatusEnum.Pending
+        this.grandmaStatus = TriggerStatusEnum.Pending
+        this.doorStatus = TriggerStatusEnum.Pending
+        this.grandmaDialogIndex = -1
+        this.isSelected = false
+    }
+
+    restore() {
+        const _data = sys.localStorage.getItem(STOREAGE_KEY) as any
+        try {
+            const data = JSON.parse(_data)
+            this.H2AData = data.H2AData
+            this.curItemType = data.curItemType
+            this.items = data.items
+            this.curScene = data.curScene
+            this.mailboxStatus = data.mailboxStatus
+            this.grandmaStatus = data.grandmaStatus
+            this.doorStatus = data.doorStatus
+            this.grandmaDialogIndex = data.grandmaDialogIndex
+            this.isSelected = data.isSelect
+        } catch {
+            this.reset()
+        }
     }
 }
