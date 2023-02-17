@@ -21,6 +21,8 @@ export default class DataManager extends Singleton {
     ]
     private _isSelected = false
     private _mailboxStatus: TriggerStatusEnum = TriggerStatusEnum.Pending
+    private _grandmaStatus: TriggerStatusEnum = TriggerStatusEnum.Pending
+    private _grandmaDialogIndex: number = -1
 
     get curItemType() {
         return this._curItemType
@@ -37,7 +39,6 @@ export default class DataManager extends Singleton {
 
     set items(newData: Array<IItem>) {
         this._items = newData
-
         //触发渲染
         this.render()
     }
@@ -57,6 +58,24 @@ export default class DataManager extends Singleton {
 
     set mailboxStatus(newData) {
         this._mailboxStatus = newData
+        this.render()
+    }
+
+    get grandmaStatus() {
+        return this._grandmaStatus
+    }
+
+    set grandmaStatus(newData) {
+        this._grandmaStatus = newData
+        this.render()
+    }
+
+    get grandmaDialogIndex() {
+        return this._grandmaDialogIndex
+    }
+
+    set grandmaDialogIndex(newData) {
+        this._grandmaDialogIndex = newData
         this.render()
     }
 
