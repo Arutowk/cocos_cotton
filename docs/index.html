@@ -1,49 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-  <title>Cocos Creator | Cotton</title>
+    <title>Cocos Creator | Cotton</title>
 
-  <!--http://www.html5rocks.com/en/mobile/mobifying/-->
-  <meta name="viewport"
-        content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="icon" href="favicon.ico"/>
+  </head>
+  <body>
+    <h1 class="header">Cotton</h1>
 
-  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="format-detection" content="telephone=no">
-
-  <!-- force webkit on 360 -->
-  <meta name="renderer" content="webkit"/>
-  <meta name="force-rendering" content="webkit"/>
-  <!-- force edge on IE -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <meta name="msapplication-tap-highlight" content="no">
-
-  <!-- force full screen on some browser -->
-  <meta name="full-screen" content="yes"/>
-  <meta name="x5-fullscreen" content="true"/>
-  <meta name="360-fullscreen" content="true"/>
-
-  <!--fix fireball/issues/3568 -->
-  <!--<meta name="browsermode" content="application">-->
-  <meta name="x5-page-mode" content="app">
-
-  <!--<link rel="apple-touch-icon" href=".png" />-->
-  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
-
-  <link rel="stylesheet" type="text/css" href="style.css"/>
-
-</head>
-<body>
-  <div id="GameDiv">
+    <div id="GameDiv" style="width: 667px; height: 375px;">
       <div id="Cocos3dGameContainer">
-        <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0"></canvas>
+        <canvas id="GameCanvas" width="667" height="375"></canvas>
       </div>
     </div>
-  
-<!-- Polyfills bundle. -->
+    <p class="footer">
+      Created with <a href="https://www.cocos.com/products" title="Cocos Creator">Cocos Creator</a>
+    </p>
+    <!-- Polyfills bundle. -->
 <script src="src/polyfills.bundle.js" charset="utf-8"> </script>
 
 <!-- SystemJS support. -->
@@ -55,6 +42,5 @@
 <script>
     System.import('./index.js').catch(function(err) { console.error(err); })
 </script>
-
-</body>
+  </body>
 </html>
