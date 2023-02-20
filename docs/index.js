@@ -1,7 +1,7 @@
 System.register(["./application.js"], function (_export, _context) {
   "use strict";
 
-  var createApplication;
+  var createApplication, canvas, $p, bcr;
 
   function loadJsListFile(url) {
     return new Promise(function (resolve, reject) {
@@ -71,6 +71,11 @@ System.register(["./application.js"], function (_export, _context) {
       createApplication = _applicationJs.createApplication;
     }],
     execute: function () {
+      canvas = document.getElementById('GameCanvas');
+      $p = canvas.parentElement;
+      bcr = $p.getBoundingClientRect();
+      canvas.width = bcr.width;
+      canvas.height = bcr.height;
       createApplication({
         loadJsListFile: loadJsListFile,
         fetchWasm: fetchWasm
