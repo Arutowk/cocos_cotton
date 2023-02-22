@@ -25,6 +25,7 @@ export class SceneManager extends RenderManager {
         director.preloadScene(SceneEnum.H2)
         director.preloadScene(SceneEnum.H3)
         director.preloadScene(SceneEnum.H4)
+        director.preloadScene(SceneEnum.H2A)
 
         if (this.inventory) {
             const inventory = instantiate(this.inventory)
